@@ -1,0 +1,38 @@
+@font-face {
+	font-family: "Atkinson";
+	src: url("/fonts/atkinson-hyperlegible-latin-400-normal.woff2");
+}
+
+@font-face {
+	font-family: "Atkinson";
+	src: url("/fonts/atkinson-hyperlegible-latin-700-normal.woff2");
+	font-weight: bold;
+}
+
+body {
+	font-family: "Atkinson", sans-serif;
+	--font-family: "Atkinson", sans-serif;
+	--primary: #ed6840;
+	--primary-hover: #f87857;
+	--primary-focus: #f57a5c40!important;
+	--primary-inverse: #FFF;
+
+	--form-element-active-border-color: var(--primary);
+	--form-element-focus-color: var(--primary-focus);
+	--switch-color: var(--primary-inverse);
+	--switch-checked-background-color: var(--primary);
+}
+
+img {
+	border-radius: var(--border-radius);
+}
+
+.flex-group {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing);
+}
+
+.flex-group * {
+	margin: 0;
+}
