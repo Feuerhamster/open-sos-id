@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using open_sos_id.Models;
+using open_sos_id.Attributes;
+using open_sos_id.Models.ViewModels;
+using open_sos_id.Services;
 
 namespace open_sos_id.Controllers;
 
@@ -9,9 +11,12 @@ public class HomeController : Controller
 {
 	private readonly ILogger<HomeController> _logger;
 
-	public HomeController(ILogger<HomeController> logger)
+	private readonly IAuthenticationService _auth;
+
+	public HomeController(ILogger<HomeController> logger, IAuthenticationService auth)
 	{
 		_logger = logger;
+		_auth = auth;
 	}
 
 	public IActionResult Index()
@@ -34,7 +39,31 @@ public class HomeController : Controller
 	[HttpPost("login")]
 	public IActionResult Login(LoginViewModel data)
 	{
-		return View(new LoginViewModel() { IsValid = false });
+		if (!ModelState.IsValid) return View(new LoginViewModel() { IsValid = false });
+
+		LoginResponse? login = this._auth.LoginUser(data.Username, data.Password);
+
+		if (login == null) return View(new LoginViewModel() { IsValid = false });
+
+		CookieOptions cookieOptions = new() {
+			HttpOnly = true,
+			SameSite = SameSiteMode.Strict
+		};
+
+		this.Response.Cookies.Append(AuthenticationService.COOKIE_IDENTIFIER, login.SessionId, cookieOptions);
+
+		return Redirect("/admin");
+	}
+
+	[HttpGet("logout")]
+	[Authorization(isAdmin: false)]
+	public IActionResult Logout()
+	{
+		this._auth.LogoutUser(this.HttpContext.Session.Id);
+
+		this.Response.Cookies.Delete(AuthenticationService.COOKIE_IDENTIFIER);
+
+		return Redirect("/login");
 	}
 
 	[Route("error")]

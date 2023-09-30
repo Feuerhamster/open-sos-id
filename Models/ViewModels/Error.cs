@@ -1,4 +1,4 @@
-namespace open_sos_id.Models;
+namespace open_sos_id.Models.ViewModels;
 
 public class ErrorViewModel
 {

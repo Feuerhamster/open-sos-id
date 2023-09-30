@@ -2,22 +2,33 @@
 	ViewData["Title"] = "Login";
 }
 
-@model open_sos_id.Models.LoginViewModel
+@model LoginViewModel
 
-<article>
-	<header class="flex-group">
-		<img src="~/img/open-sos-id-logo.png" height="120" width="120" />
-		<hgroup>
-			<h1>Open SOS ID</h1>
-			<h2>Self hosted medical information system for emergency services</h2>
-		</hgroup>
-	</header>
+<main class="center-complete">
+	<article>
+		<header>
+			<img src="~/img/open-sos-id-logo.png" height="120" width="120" />
+			<hgroup>
+				<h1>Open SOS ID</h1>
+				<h2>Self hosted medical information system for emergency services</h2>
+			</hgroup>
+		</header>
 
-	<form method="POST">
-		<input placeholder="Username" name="Username" aria-invalid="@Model.Invalid()" />
-		<input placeholder="Password" type="password" name="Password" aria-invalid="@Model.Invalid()" />
-		<button type="submit" aria-busy="false">
-			Login
-		</button>
-	</form>
-</article>
+		<section>
+			<form method="POST">
+				<label for="input-username">
+					<span>Username</span>
+					<input id="input-username" placeholder="Enter your username" name="Username" aria-invalid="@Model.Invalid()" />
+				</label>
+				<label for="input-password">
+					<span>Password</span>
+					<input id="input-password" placeholder="Type your password" type="password" name="Password" aria-invalid="@Model.Invalid()" />
+				</label>
+				
+				<button type="submit" aria-busy="false">
+					Login
+				</button>
+			</form>
+		</section>
+	</article>
+</main>
