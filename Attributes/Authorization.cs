@@ -11,7 +11,7 @@ public class AuthorizationAttribute : Attribute, IAuthorizationFilter
 {
 	private readonly bool _isAdmin;
 
-	public AuthorizationAttribute(bool isAdmin) {
+	public AuthorizationAttribute(bool isAdmin = false) {
 		this._isAdmin = isAdmin;
 	}
 

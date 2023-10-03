@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -12,24 +12,6 @@
 	</head>
 
 	<body>
-		<nav>
-			<ul>
-				<li>
-					<img src="/img/open-sos-id-logo.png" height="42" width="42" />
-					<h1>Open SOS Id</h1>
-				</li>
-			</ul>
-			<ul>
-				<li><a href="/profiles" aria-current="@ViewBag.NavRoute">Medical Profiles</a></li>
-				<li><a href="/account">My Account</a></li>
-				<li><a href="/admin">Administration</a></li>
-				<li><a href="/logout" role="button">Log out</a></li>
-			</ul>
-		</nav>
-
-
-		<main>
-			@RenderBody()
-		</main>
+		@RenderBody()
 	</body>
 </html>

@@ -19,22 +19,10 @@ public class HomeController : Controller
 		_auth = auth;
 	}
 
-	public IActionResult Index()
-	{
-		return Redirect("/login");
-	}
-
-	[Route("privacy")]
-	public IActionResult Privacy()
-	{
-		return View();
-	}
+	public IActionResult Index() => Redirect("/login");
 
 	[HttpGet("login")]
-	public IActionResult Login()
-	{
-		return View(new LoginViewModel());
-	}
+	public IActionResult Login() => View(new LoginViewModel());
 
 	[HttpPost("login")]
 	public IActionResult Login(LoginViewModel data)
@@ -52,7 +40,11 @@ public class HomeController : Controller
 
 		this.Response.Cookies.Append(AuthenticationService.COOKIE_IDENTIFIER, login.SessionId, cookieOptions);
 
-		return Redirect("/admin");
+		if (login.User.IsAdmin) {
+			return Redirect("/admin");
+		} else {
+			return Redirect("/profiles");
+		}
 	}
 
 	[HttpGet("logout")]
