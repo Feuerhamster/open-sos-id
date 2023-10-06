@@ -1,5 +1,6 @@
 @{
 	ViewData["Title"] = "Login";
+	Layout = "_Layout_Login";
 }
 
 @model LoginViewModel
@@ -16,13 +17,13 @@
 
 		<section>
 			<form method="POST">
-				<label for="input-username">
+				<label>
 					<span>Username</span>
-					<input id="input-username" placeholder="Enter your username" name="Username" aria-invalid="@Model.Invalid()" />
+					<input placeholder="Enter your username" name="Username" aria-invalid="@Model.Invalid()" />
 				</label>
-				<label for="input-password">
+				<label>
 					<span>Password</span>
-					<input id="input-password" placeholder="Type your password" type="password" name="Password" aria-invalid="@Model.Invalid()" />
+					<input placeholder="Type your password" type="password" name="Password" aria-invalid="@Model.Invalid()" />
 				</label>
 				
 				<button type="submit" aria-busy="false">
