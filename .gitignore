@@ -477,4 +477,8 @@ $RECYCLE.BIN/
 *.lnk
 
 .vscode
+
+# security stuff
 database.db
+appsettings.Development.json
+appsettings.Production.json
