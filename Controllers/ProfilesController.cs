@@ -31,4 +31,10 @@ public class ProfilesController : Controller
 
 		return View(new MedicalProfilesViewModel(profiles));
 	}
+
+	[HttpGet("new")]
+	[HttpGet("edit")]
+	public IActionResult Editor(string? id = null) {
+		return View();
+	}
 }

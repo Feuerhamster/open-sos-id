@@ -1,0 +1,75 @@
+@{
+	ViewData["Title"] = "New Profile";
+}
+
+@model MedicalProfileViewModel
+
+<article>
+	<header>
+		<h1>Create a new medical profile</h1>
+	</header>
+	<section>
+		<form method="POST">
+			<label>
+				Profile name
+				<input asp-for="InternalName" type="text" placeholder="Name this profile" />
+			</label>
+
+			<hr />
+
+			<label>
+				Full Name
+				<input asp-for="FullName" type="text" placeholder="Your full name" />
+			</label>
+
+			<label>
+				Address
+				<input asp-for="Address" type="text" placeholder="Your full address" />
+			</label>
+
+			<label>
+				Birthdate
+				<input asp-for="BirthDate" type="date" placeholder="Your full address" />
+			</label>
+
+			<hr />
+
+			<label>
+				Bodyweight (kg)
+				<input asp-for="BodyWeight" type="number" placeholder="Your body weight in kilogramms" />
+			</label>
+
+			<label>
+				Blood group
+				<select asp-for="BloodGroup" asp-items="Html.GetEnumSelectList<BloodGroup>()">
+				</select>
+			</label>
+
+			<fieldset>
+				<legend>Emergency Contacts</legend>
+				
+				<div>
+					<label>
+						Name
+						<input />
+					</label>
+
+					<label>
+						Telephone/Email/Address
+						<input />
+					</label>
+				</div>
+
+				<button type="button">Add another contact</button>
+			</fieldset>
+
+			<button>Submit</button>
+		</form>
+	</section>
+</article>
+
+<script defer>
+	function addAdditionalField(property) {
+
+	}
+</script>
