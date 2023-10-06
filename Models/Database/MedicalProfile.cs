@@ -16,15 +16,15 @@ public class MedicalProfile {
 	[BsonRef("users")]
 	public User User { get; set; }
 
-	public string InternalName { get; set; }
+	public string InternalName { get; set; } = String.Empty;
 
-	public string AccessCode { get; set; }
+	public string AccessCode { get; set; } = String.Empty;
 
 	public ProfileStatus Status { get; set; }
 
-	public string FullName { get; set; }
+	public string FullName { get; set; } = String.Empty;
 
-	public string Address { get; set; }
+	public string Address { get; set; } = String.Empty;
 
 	public Dictionary<string, string> EmergencyContacts { get; set; } = new();
 
@@ -42,7 +42,7 @@ public class MedicalProfile {
 
 	public List<string> PreConditions { get; set; } = new();
 
-	public string AditionalNotes { get; set; }
+	public string AditionalNotes { get; set; } = String.Empty;
 
 	public bool OrganDonorCardExists { get; set; }
 }

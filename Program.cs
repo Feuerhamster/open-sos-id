@@ -1,4 +1,5 @@
 using open_sos_id.Services;
+using open_sos_id.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

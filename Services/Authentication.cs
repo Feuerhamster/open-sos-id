@@ -11,22 +11,24 @@ public interface IAuthenticationService {
 	public bool IsLoggedIn(string sessionId);
 	public UserSessionStorageItem? GetSession(string sessionId);
 	public void CreateFirstAdminUser();
+
+	public Dictionary<EOAuthProvider, Uri> GetOAuthUrls();
 }
 
 public class AuthenticationService : IAuthenticationService {
 
 	private readonly ILogger _logger;
-
 	private readonly IDatabaseService _db;
-
+	private readonly IConfiguration _config;
 	private readonly SessionStorage _sessions = new(SESSION_EXPIRES);
 
 	public static TimeSpan SESSION_EXPIRES = TimeSpan.FromHours(6);
 	public static string COOKIE_IDENTIFIER = "open-sos-id-login";
 
-	public AuthenticationService(ILogger<DatabaseService> logger, IDatabaseService database) {
+	public AuthenticationService(ILogger<DatabaseService> logger, IDatabaseService database, IConfiguration config) {
 		this._logger = logger;
 		this._db = database;
+		this._config = config;
 
 		this.CreateFirstAdminUser();
 	}
@@ -74,6 +76,39 @@ public class AuthenticationService : IAuthenticationService {
 		this._db.Users.Insert(user);
 
 		this._logger.LogCritical("Initial user created admin:admin");
+	}
+
+	public Dictionary<EOAuthProvider, Uri> GetOAuthUrls() {
+		OAuthProviders? options = this._config.GetSection("OAuth").Get<OAuthProviders>();
+
+		Dictionary<EOAuthProvider, Uri> urls = new();
+
+		if (options == null) return urls;
+
+		if (options.Google != null) {
+			Uri uri = new GoogleOAuthClient(options.Google).GetAuthUri();
+			urls.Add(EOAuthProvider.Google, uri);
+		}
+
+		return urls;
+	}
+
+	public async Task<bool> LoginWithOAuthProvider(EOAuthProvider provider, string code) {
+		List<OAuthOptions>? options = this._config.GetSection(OAuthOptions.Position).Get<List<OAuthOptions>>();
+
+		if (options == null) return false;
+		
+		OAuthOptions? option = options.Find(o => o.Name == provider);
+
+		if (option == null) return false;
+
+		OAuthManager manager = new OAuthManager(option);
+
+		HttpClient client = new();
+
+		Task<HttpResponseMessage> res = client.GetAsync(manager.GetTokenUrl());
+
+		return true;
 	}
 }
 

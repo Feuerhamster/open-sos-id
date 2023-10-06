@@ -29,6 +29,18 @@
 				<button type="submit" aria-busy="false">
 					Login
 				</button>
+
+				@if(Model.OAuths.Length > 0) {
+					<hr />
+
+					<h3>Login with other providers</h3>
+
+					@foreach(OAuthManager manager in Model.OAuths) {
+						<a href="@manager.GetAuthUrl().ToString()" role="button" class="color-grey">
+							@manager.DisplayName
+						</a>
+					}
+				}
 			</form>
 		</section>
 	</article>

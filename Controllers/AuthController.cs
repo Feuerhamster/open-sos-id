@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using open_sos_id.Attributes;
+using open_sos_id.Models;
 using open_sos_id.Models.ViewModels;
 using open_sos_id.Services;
 
@@ -19,7 +20,11 @@ public class AuthController : Controller
 	public IActionResult Index() => Redirect("/login");
 
 	[HttpGet("login")]
-	public IActionResult Login() => View(new LoginViewModel());
+	public IActionResult Login() {
+		OAuthManager[] managers = this._auth.GetOAuthManagers();
+		
+		return View(new LoginViewModel() { OAuths = managers });
+	}
 
 	[HttpPost("login")]
 	public IActionResult Login(LoginViewModel data)
@@ -55,10 +60,8 @@ public class AuthController : Controller
 		return Redirect("/login");
 	}
 
-	[Route("error")]
-	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-	public IActionResult Error()
-	{
-		return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+	[HttpGet("oauth/{provider}")]
+	public IActionResult OAuth(string provider, string code) {
+		return View();
 	}
 }

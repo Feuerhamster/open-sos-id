@@ -13,13 +13,13 @@ public class MedicalProfilesViewModel {
 
 public class MedicalProfileViewModel : ValidatableViewModel {
 	[Required]
-	public string InternalName { get; set; }
+	public string InternalName { get; set; } = String.Empty;
 
 	[Required]
-	public string FullName { get; set; }
+	public string FullName { get; set; } = String.Empty;
 
 	[Required]
-	public string Address { get; set; }
+	public string Address { get; set; } = String.Empty;
 
 	public DateTime BirthDate { get; set; }
 
@@ -28,17 +28,17 @@ public class MedicalProfileViewModel : ValidatableViewModel {
 
 	public BloodGroup BloodGroup { get; set; }
 	
-	public Dictionary<string, string> EmergencyContacts { get; set; } 
+	public Dictionary<string, string> EmergencyContacts { get; set; } = new();
 
-	public Dictionary<string, string> Doctors { get; set; }
+	public Dictionary<string, string> Doctors { get; set; } = new();
 
-	public List<string> Allergies { get; set; }
+	public List<string> Allergies { get; set; } = new();
 
-	public Dictionary<string, string> Medication { get; set; }
+	public Dictionary<string, string> Medication { get; set; } = new();
 
-	public List<string> PreConditions { get; set; } 
+	public List<string> PreConditions { get; set; } = new();
 
-	public string AditionalNotes { get; set; }
+	public string AditionalNotes { get; set; } = String.Empty;
 
 	public bool OrganDonorCardExists { get; set; }
 }
